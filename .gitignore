@@ -1,0 +1,16 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Local data and secrets
+*.db
+*.sqlite3
+.env
+
+# Editors and OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

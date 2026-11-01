@@ -1,0 +1,127 @@
+:root {
+  --night: #171539;
+  --edge: #0d0c28;
+  --raised: #2c2960;
+  --ink: #f6efd8;
+  --dim: #c9c4e2;
+  --gold: #ffc94a;
+  --gold-dark: #d9962e;
+  --pixel: "Pixelify Sans", monospace;
+  --label: Silkscreen, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: #1b1a4b; color: var(--ink); font-family: var(--pixel); }
+
+#scene, #scanlines { position: fixed; inset: 0; width: 100%; height: 100%; }
+#scene { image-rendering: pixelated; object-fit: cover; }
+#scanlines {
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(0deg, rgba(10, 8, 40, .16) 0 2px, rgba(10, 8, 40, 0) 2px 5px);
+}
+#tag {
+  position: fixed;
+  z-index: 1;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  white-space: nowrap;
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: var(--night);
+  border: 3px solid var(--edge);
+}
+
+#app {
+  position: relative;
+  z-index: 3;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 24px 24px;
+}
+#top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+#logo { font-size: 38px; font-weight: 700; letter-spacing: 2px; text-shadow: 4px 4px 0 var(--night); }
+nav { display: flex; align-items: stretch; gap: 12px; font-family: var(--label); font-size: 15px; }
+#wallet { display: flex; align-items: center; gap: 10px; padding: 0 18px; color: var(--gold); background: var(--night); border: 4px solid var(--night); }
+.coin { width: 16px; height: 16px; background: var(--gold); box-shadow: inset -4px -4px 0 var(--gold-dark); }
+
+button, select, input { font: inherit; color: inherit; border-radius: 0; }
+button { min-height: 48px; cursor: pointer; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.tab { padding: 0 18px; background: var(--night); border: 4px solid var(--night); }
+.tab:hover { color: var(--gold); }
+.tab.on { color: var(--night); background: var(--gold); }
+.primary, .secondary { flex: 1; padding: 0 14px; font-family: var(--label); font-size: 14px; border: 0; }
+.primary { color: var(--night); background: var(--gold); box-shadow: 0 4px 0 var(--gold-dark); }
+.secondary { background: var(--raised); box-shadow: 0 4px 0 var(--edge); }
+.secondary:hover { color: var(--gold); }
+.primary:disabled { cursor: not-allowed; color: var(--dim); background: var(--raised); box-shadow: 0 4px 0 var(--edge); }
+
+#stage { flex: 1; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.panel { background: var(--night); border: 4px solid var(--edge); box-shadow: 0 6px 0 var(--edge); padding: 22px 24px; }
+.side { width: min(100%, 360px); display: flex; flex-direction: column; gap: 10px; }
+#view-done { width: min(100%, 480px); gap: 16px; }
+.label { font-family: var(--label); font-size: 13px; color: var(--dim); }
+.gold { color: var(--gold); }
+.row { display: flex; gap: 12px; }
+.spread { justify-content: space-between; font-size: 20px; }
+
+#start-form { display: flex; flex-direction: column; gap: 10px; }
+#start-form input, #start-form select { min-height: 48px; padding: 0 12px; background: var(--raised); border: 0; }
+#start-form input { font-size: 20px; }
+#start-form .primary { flex: none; min-height: 52px; margin-top: 12px; }
+#active-task { font-size: 26px; font-weight: 600; overflow-wrap: anywhere; }
+#time { font-size: clamp(68px, 9vw, 92px); font-weight: 700; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+#view-active .row { margin-top: 10px; }
+
+#view-done h1 { margin: 0; font-size: clamp(38px, 5vw, 58px); line-height: 1; overflow-wrap: anywhere; }
+#view-done p { margin: 0; font-size: 22px; line-height: 1.35; }
+#stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.stat { padding: 12px 14px; background: var(--raised); }
+.stat strong { display: block; margin-top: 6px; font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+#ladder { width: min(100%, 300px); padding: 18px 20px; }
+#rungs { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.rung { display: flex; justify-content: space-between; gap: 12px; padding: 7px 8px; font-size: 19px; font-variant-numeric: tabular-nums; }
+.rung.next { background: var(--raised); }
+.rung.you { color: var(--night); background: var(--gold); }
+.rung.past { color: var(--dim); }
+
+#next { display: flex; flex-direction: column; gap: 10px; padding: 14px 18px; box-shadow: none; }
+#bar { height: 16px; background: var(--raised); }
+#bar-fill { height: 100%; width: 0; background: var(--gold); box-shadow: inset 0 -4px 0 var(--gold-dark); }
+
+#view-shop { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 20px; }
+#fitting { flex: 1 1 280px; max-width: 340px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+#fitting .label:first-child { align-self: flex-start; }
+#fitting .primary { flex: none; width: 100%; min-height: 54px; }
+#preview { width: 180px; height: 240px; image-rendering: pixelated; border-bottom: 12px solid #f2ecf6; }
+#pick-name { font-size: 28px; font-weight: 600; text-align: center; }
+#items { flex: 999 1 420px; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px; font-family: var(--pixel); background: var(--night); border: 4px solid var(--edge); box-shadow: 0 6px 0 var(--edge); }
+.item:hover, .item.on { border-color: var(--gold); }
+.item canvas { width: 96px; height: 128px; image-rendering: pixelated; }
+.item-name { font-size: 22px; font-weight: 600; }
+.item-tag { font-family: var(--label); font-size: 13px; color: var(--gold); }
+.item-tag.owned { color: var(--dim); }
+
+/* Pixelify's 5 and 8 look alike, so anything numeric uses the clearer face. */
+#time, #tag, #next-left, #minutes, .stat strong, .rung span:last-child { font-family: var(--label); font-weight: 400; }
+#time { font-size: clamp(56px, 7.5vw, 76px); }
+.stat strong { font-size: 21px; }
+.rung span:last-child { font-size: 14px; align-self: center; }
+#tag { font-size: 17px; }
+#next-left, #minutes { font-size: 16px; }
+
+@media (max-width: 760px) {
+  #app { padding: 16px; }
+  .side, #ladder, #fitting { width: 100%; max-width: none; }
+  #tag { display: none; }
+  #items { flex-basis: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
