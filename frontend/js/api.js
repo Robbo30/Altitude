@@ -1,6 +1,9 @@
-// Set this to your FastAPI address, such as 'http://localhost:8000', to use the real backend.
-// While it is empty, the app uses the sample data below.
-const API_URL = '';
+// Your FastAPI server. Set it to '' to use only the sample data below.
+const API_URL = 'http://127.0.0.1:8000';
+
+// The endpoints your backend has so far. Add each one as you build it;
+// anything not listed here still uses the sample data.
+const LIVE = ['/player'];
 
 export const LANDMARKS = [
   { name: 'Ben Nevis', metres: 1345, fact: 'It\'s the highest mountain in the UK.' },
@@ -23,14 +26,16 @@ async function request(path, body) {
   return res.json();
 }
 
-export const getPlayer = () => (API_URL ? request('/player') : sample.getPlayer());
-export const startClimb = (task, minutes) => (API_URL ? request('/climbs/start', { task, minutes }) : sample.startClimb(task, minutes));
-export const pauseClimb = () => (API_URL ? request('/climbs/pause', {}) : sample.pauseClimb());
-export const resumeClimb = () => (API_URL ? request('/climbs/resume', {}) : sample.resumeClimb());
-export const finishClimb = () => (API_URL ? request('/climbs/finish', {}) : sample.finishClimb());
-export const getShop = () => (API_URL ? request('/shop') : sample.getShop());
-export const buyItem = (id) => (API_URL ? request('/shop/buy', { item_id: id }) : sample.buyItem(id));
-export const setOutfit = (outfit) => (API_URL ? request('/outfit', outfit) : sample.setOutfit(outfit));
+const live = (path) => API_URL && LIVE.includes(path);
+
+export const getPlayer = () => (live('/player') ? request('/player') : sample.getPlayer());
+export const startClimb = (task, minutes) => (live('/climbs/start') ? request('/climbs/start', { task, minutes }) : sample.startClimb(task, minutes));
+export const pauseClimb = () => (live('/climbs/pause') ? request('/climbs/pause', {}) : sample.pauseClimb());
+export const resumeClimb = () => (live('/climbs/resume') ? request('/climbs/resume', {}) : sample.resumeClimb());
+export const finishClimb = () => (live('/climbs/finish') ? request('/climbs/finish', {}) : sample.finishClimb());
+export const getShop = () => (live('/shop') ? request('/shop') : sample.getShop());
+export const buyItem = (id) => (live('/shop/buy') ? request('/shop/buy', { item_id: id }) : sample.buyItem(id));
+export const setOutfit = (outfit) => (live('/outfit') ? request('/outfit', outfit) : sample.setOutfit(outfit));
 
 // Everything below stands in for the backend, and can go once FastAPI is running.
 const KEY = 'altitude-sample';

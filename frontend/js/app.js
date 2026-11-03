@@ -223,7 +223,16 @@ $('start-form').addEventListener('submit', async (e) => {
   setView('climb');
 });
 
-player = await api.getPlayer();
+try {
+  player = await api.getPlayer();
+} catch (err) {
+  const box = document.createElement('section');
+  box.className = 'panel side';
+  box.innerHTML = '<div class="label gold">Can\'t reach the backend</div><p></p>';
+  box.querySelector('p').textContent = 'Check your FastAPI server is running and allows this page through CORS. The browser console has the details.';
+  $('stage').append(box);
+  throw err;
+}
 shop = await api.getShop();
 tryOn = { ...player.outfit };
 setView('climb');
